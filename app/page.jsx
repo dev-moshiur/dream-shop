@@ -35,6 +35,12 @@ export default function HomePage() {
     
     <div className="content-wrapper  js-content-wrapper overflow-hidden">
     
+
+
+
+
+
+    
       <Hero/>
       {/* <Brands/> */}
      <TopCategories/>
