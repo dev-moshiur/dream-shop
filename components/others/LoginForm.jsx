@@ -18,7 +18,7 @@ export default function SignUpForm() {
     axios
   .post('https://dream-shop-123.onrender.com/api/auth/local', {
 
-    email: e.target.email.value,
+    identifier: e.target.email.value,
     password:e.target.password.value,
   })
   .then(response => {
