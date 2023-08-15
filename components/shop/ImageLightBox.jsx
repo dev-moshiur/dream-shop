@@ -39,7 +39,7 @@ export default function ImageLightBox({
               {i + 1} / {images.length}
             </div>
             <img
-              src={elm.image}
+              src={elm.attributes.url}
               style={{
                 height: "100%",
                 width: "100%",

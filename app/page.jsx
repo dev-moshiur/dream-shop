@@ -16,6 +16,8 @@ import Blog from "../components/homes/blogs/Blog";
 import Join from "../components/homes/join/Join";
 import FooterOne from "../components/layout/footers/FooterOne";
 import Preloader from "@/components/common/Preloader";
+import Hero from "@/components/shop/Hero";
+import TopCategories from "@/components/TopCategories";
 
 export const metadata = {
   title: 'Home-1 || Educrat - Professional LMS Online Education Course NextJS Template',
@@ -33,17 +35,17 @@ export default function HomePage() {
     
     <div className="content-wrapper  js-content-wrapper overflow-hidden">
     
-      <HomeHero />
-      <Brands/>
-      <Categories />
+      <Hero/>
+      {/* <Brands/> */}
+     <TopCategories/>
       <Courses/>
       <TestimonialsOne/>
-      <FeaturesOne/>
-      <WhyCourse/>
+      {/* <FeaturesOne/> */}
+      {/* <WhyCourse/>
       <Instructors/>
       <GetApp/>
       <Blog/>
-      <Join/>
+      <Join/> */}
       <FooterOne/>
       
       

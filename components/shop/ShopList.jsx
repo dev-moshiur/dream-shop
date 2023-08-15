@@ -10,13 +10,15 @@ import Pagination from "../common/Pagination";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useContextElement } from "@/context/Context";
 import Link from "next/link";
+import Loading from "../Loading";
+import useFetch from "@/hooks/useFeatch";
 export default function ShopList() {
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
 
   const [value, setValue] = useState([200, 1500]);
-  const [pageData, setpageData] = useState();
 
-  const [pageItems, setPageItems] = useState(productData);
+  const { data, loading, error } = useFetch('products?populate=*')
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -124,16 +126,7 @@ export default function ShopList() {
                   <h5 className="sidebar__title">Tags</h5>
 
                   <div className="sidebar-content -tags">
-                    {tags.map((elm, i) => (
-                      <div key={i} className="sidebar-tag">
-                        <a
-                          className="text-11 fw-500 text-dark-1"
-                          href={elm.href}
-                        >
-                          {elm.name}
-                        </a>
-                      </div>
-                    ))}
+                   
                   </div>
                 </div>
               </div>
@@ -143,7 +136,7 @@ export default function ShopList() {
               <div className="row y-gap-10 justify-between items-center">
                 <div className="col-auto">
                   <div className="text-14">
-                    Showing <span className="fw-500 text-dark-1">250</span>{" "}
+                    Showing <span className="fw-500 text-dark-1">{data && data.length}</span>{" "}
                     total results
                   </div>
                 </div>
@@ -205,14 +198,16 @@ export default function ShopList() {
               </div>
 
               <div className="row y-gap-30 pt-30">
-                {pageItems.map((elm, i) => (
+                {loading && <Loading/>}
+                {data && data.map((elm, i) => (
                   <div key={i} className="col-lg-4 col-sm-6">
                     <div className="productCard -type-1 text-center">
                       <div className="productCard__image">
                         <Image
                           width={528}
                           height={528}
-                          src={elm.image}
+                          src={`${elm.attributes.imgs.data[0].attributes.url}`}
+                   
                           alt="Product image"
                         />
 
@@ -228,9 +223,8 @@ export default function ShopList() {
 
                       <div className="productCard__content mt-20">
                         <div className="text-14  lh-1">
-                          {elm.categories.map((itm, index) => (
-                            <span key={index}>{`${itm}, `}</span>
-                          ))}
+                        {elm?.attributes?.category?.data?.attributes?.name ||  'Category'}
+                 
                         </div>
                         <h4 className="text-17 fw-500 mt-15 linkCustom">
                           <Link
@@ -238,19 +232,19 @@ export default function ShopList() {
                             style={{ textDecoration: "none", color: "inherit" }}
                           >
                             {" "}
-                            {elm.name}{" "}
+                            {elm.attributes.name}{" "}
                           </Link>
                         </h4>
                         <div className="text-17 fw-500 text-purple-1 mt-15">
-                          ${elm.price.toFixed(2)}
+                        ${elm.attributes.price}
                         </div>
 
                         <div
                           className="productCard__button d-inline-block cursor"
-                          onClick={() => addProductToCart(elm.id)}
+                          onClick={() => addProductToCart(elm)}
                         >
                           <span className="button -md -outline-purple-1 text-dark-1 mt-15">
-                            {isAddedToCartProducts(elm.id)
+                            {isAddedToCartProducts(elm)
                               ? "Already Added"
                               : "Add To Cart"}
                           </span>

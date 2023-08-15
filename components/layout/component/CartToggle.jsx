@@ -44,15 +44,10 @@ const CartToggle = ({ allClasses, parentClassess }) => {
         >
           <i className="text-20 icon icon-basket"></i>
           <div className="cartProductCount">
-            {submenu == "Shop" && (
+        
               <>{cartProducts.length > 9 ? "9+" : cartProducts.length} </>
-            )}
-            {menuItem == "Events" && (
-              <>{cartEvents.length > 9 ? "9+" : cartEvents.length} </>
-            )}
-            {!(submenu == "Shop" || menuItem == "Events") && (
-              <>{cartCourses.length > 9 ? "9+" : cartCourses.length} </>
-            )}
+    
+           
           </div>
         </button>
 
@@ -61,10 +56,8 @@ const CartToggle = ({ allClasses, parentClassess }) => {
             activeCart ? "-is-el-visible" : ""
           }`}
         >
-          {submenu == "Shop" && <ShopCart />}
-          {menuItem == "Events" && <EventCart />}
-          {!(submenu == "Shop" || menuItem == "Events") && <CourseCart />}
-        </div>
+          { <ShopCart />}
+         </div>
       </div>
     </>
   );

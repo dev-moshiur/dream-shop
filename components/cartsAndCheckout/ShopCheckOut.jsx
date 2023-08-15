@@ -9,10 +9,10 @@ export default function ShopCheckOut() {
   const [shiping, setShiping] = useState(0);
   useEffect(() => {
     const sum = cartProducts.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.price * currentValue.quantity;
+      return accumulator + currentValue.attributes.price * currentValue.attributes.quantity;
     }, 0);
     const sumQuantity = cartProducts.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.quantity;
+      return accumulator + currentValue.attributes.quantity;
     }, 0);
     setShiping(sumQuantity * 10);
     setTotalPrice(sum);
@@ -228,11 +228,11 @@ export default function ShopCheckOut() {
                           className="linkCustom"
                           href={`/shop/${elm.id}`}
                         >
-                          {elm.name}{" "}
-                        </Link> x {elm.quantity}
+                          {elm.attributes.name}{" "}
+                        </Link> x {elm.attributes.quantity}
                       </div>
                       <div className="py-15 text-grey">
-                        ${(elm.price * elm.quantity).toFixed(2)}
+                        ${(elm.attributes.price * elm.attributes.quantity).toFixed(2)}
                       </div>
                     </div>
                   ))}

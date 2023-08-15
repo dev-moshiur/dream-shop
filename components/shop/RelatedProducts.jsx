@@ -66,10 +66,10 @@ export default function RelatedProducts() {
 
                   <div
                     className="productCard__button d-inline-block"
-                    onClick={() => addProductToCart(elm.id)}
+                    onClick={() => addProductToCart(elm)}
                   >
                     <span className="button -md -outline-purple-1 -rounded text-dark-1 mt-15">
-                      {isAddedToCartProducts(elm.id)
+                      {isAddedToCartProducts(elm)
                         ? "Already Added"
                         : "Add To Cart"}
                     </span>

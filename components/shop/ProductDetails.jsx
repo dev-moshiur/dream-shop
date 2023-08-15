@@ -9,8 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import ImageLightBox from "./ImageLightBox";
 import { useContextElement } from "@/context/Context";
+import useFetch from "@/hooks/useFeatch";
 export default function ProductDetails({ id }) {
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
+  const { data, loading, error } = useFetch(`products/${id}?populate=*`)
   const swiperRef = useRef(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [showSlider, setShowSlider] = useState(false);
@@ -31,11 +33,12 @@ export default function ProductDetails({ id }) {
   }, [currentSlideIndex]);
 
   useEffect(() => {
-    const item = productData.filter((elm) => elm.id == id)[0] || productData[0];
-    setCurrentItem(item);
-    const OtherItems = productData.filter((elm) => elm != item).slice(0, 3);
-    setpageItems([item, ...OtherItems]);
-  }, []);
+    if(data){
+      setpageItems(data.attributes.imgs.data)
+
+    }
+
+  }, [data]);
 
   useEffect(() => {
     setShowSlider(true);
@@ -95,7 +98,7 @@ export default function ProductDetails({ id }) {
                                   width={690}
                                   height={625}
                                   className="absolute-full-center rounded-8"
-                                  src={elm.image}
+                                  src={elm.attributes.url}
                                   alt="project image"
                                 />
                               </div>
@@ -122,7 +125,7 @@ export default function ProductDetails({ id }) {
                 </div>
 
                 <div className="row y-gap-10 x-gap-10 pt-10 js-slider-pagination">
-                  {pageItems.map((elm, i) => (
+                  { data && data.attributes.imgs.data.map((elm, i) => (
                     <div
                       style={{ cursor: "pointer" }}
                       onClick={() => handlePaginationClick(i)}
@@ -133,7 +136,7 @@ export default function ProductDetails({ id }) {
                         width={90}
                         height={90}
                         className="size-90 object-cover rounded-8"
-                        src={elm.image}
+                        src={elm.attributes.url}
                         alt="project image"
                       />
                     </div>
@@ -144,16 +147,14 @@ export default function ProductDetails({ id }) {
 
             <div className="col-lg-5">
               <div className="pb-90 md:pb-0">
-                <h2 className="text-30 fw-500 mt-4">{currentItem.name}</h2>
+                <h2 className="text-30 fw-500 mt-4"> {data && data.attributes.name}</h2>
                 <div className="text-24 fw-500 text-purple-1 mt-15">
-                  ${currentItem.price}
+                  $ {data && data.attributes.price}
                 </div>
 
                 <div className="mt-30">
                   <p>
-                    Besides, random text risks to be unintendedly humorous or
-                    offensive, an unacceptable risk in corporate environments
-                    and its many variants have been employed.
+                    {data && data.attributes.desc}
                   </p>
                 </div>
 
@@ -191,9 +192,9 @@ export default function ProductDetails({ id }) {
                   <div className="col-auto">
                     <button
                       className="button h-50 px-45 -purple-1 text-white"
-                      onClick={() => addProductToCart(currentItem.id)}
+                      onClick={() => addProductToCart(data)}
                     >
-                      {isAddedToCartProducts(currentItem.id)
+                      {isAddedToCartProducts(data)
                         ? "Already Added"
                         : "Add To Cart"}
                     </button>
@@ -208,8 +209,8 @@ export default function ProductDetails({ id }) {
                 </div>
 
                 <div className="pt-30">
-                  <p>Category: Classic</p>
-                  <p>Tags: Men, Sports, Women</p>
+                  <p>Category:  {data && data?.attributes?.category?.data?.attributes?.name}</p>
+         
                 </div>
               </div>
             </div>

@@ -9,14 +9,14 @@ const ShopCart = () => {
   const { cartProducts, setCartProducts } = useContextElement();
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const handleRemoveCart = (index) => {
-    const item = cartProducts[index];
+  const handleRemoveCart = (item) => {
+   
 
     setCartProducts((pre) => [...pre.filter((elm) => elm !== item)]);
   };
   useEffect(() => {
     const sum = cartProducts.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.price * currentValue.quantity;
+      return accumulator + currentValue.attributes.price * currentValue.attributes.quantity;
     }, 0);
     setTotalPrice(sum);
   }, [cartProducts]);
@@ -35,25 +35,25 @@ const ShopCart = () => {
             >
               <div className="row x-gap-10 y-gap-10">
                 <div className="col-auto">
-                  <Image width={80} height={80} src={elm.image} alt="image" />
+                  <Image width={80} height={80} src={elm.attributes.imgs.data[0].attributes.url} alt="image" />
                 </div>
 
                 <div className="col">
-                  <div className="text-dark-1 lh-15">{elm.name}</div>
+                  <div className="text-dark-1 lh-15">{elm.attributes.name}</div>
 
                   <div className="d-flex items-center mt-10">
                     <div className="lh-12 fw-500 line-through text-light-1 mr-10">
-                      ${elm.preDiscount}
+                      ${elm.attributes.preDiscount}
                     </div>
                     <div className="text-18 lh-12 fw-500 text-dark-1">
-                      ${elm.price}
+                      ${elm.attributes.price}
                     </div>
                   </div>
                 </div>
               </div>
             </Link>
 
-            <div className="col-auto" onClick={() => handleRemoveCart(i)}>
+            <div className="col-auto" onClick={() => handleRemoveCart(elm)}>
               <button>
                 <Image
                   width={12}

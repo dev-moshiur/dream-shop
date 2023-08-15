@@ -43,7 +43,7 @@ export default function ShopCart() {
   };
   useEffect(() => {
     const sum = cartProducts.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.price * currentValue.quantity;
+      return accumulator + currentValue.attributes.price * currentValue.attributes.quantity;
     }, 0);
     setTotalPrice(sum);
   }, [cartProducts]);
@@ -108,7 +108,7 @@ export default function ShopCart() {
                         <div className="">
                           <div
                             className="size-100 bg-image rounded-8 js-lazy"
-                            style={{ backgroundImage: `url(${elm.image})` }}
+                            style={{ backgroundImage: `url(${elm.attributes.imgs.data[0].attributes.url})` }}
                           ></div>
                         </div>
                         <div className="fw-500 text-dark-1 ml-30">
@@ -116,7 +116,7 @@ export default function ShopCart() {
                           className="linkCustom"
                           href={`/shop/${elm.id}`}
                         >
-                          {elm.name}{" "}
+                          {elm.attributes.name}{" "}
                         </Link>
                         </div>
                       </div>
@@ -127,7 +127,7 @@ export default function ShopCart() {
                         <div className="shopCart-products__title d-none md:d-block mb-10">
                           Price
                         </div>
-                        <p>${elm.price}</p>
+                        <p>${elm.attributes.price}</p>
                       </div>
                     </div>
 
@@ -143,7 +143,7 @@ export default function ShopCart() {
                             className="input-counter__counter"
                             type="number"
                             placeholder="value..."
-                            value={elm.quantity}
+                            value={elm.attributes.quantity}
                           />
 
                           <div className="input-counter__controls">
@@ -171,7 +171,7 @@ export default function ShopCart() {
                           Subtotal
                         </div>
 
-                        <p>${(elm.quantity * elm.price).toFixed(2)}</p>
+                        <p>${(elm.attributes.quantity * elm.attributes.price).toFixed(2)}</p>
                       </div>
                     </div>
 

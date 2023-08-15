@@ -9,7 +9,7 @@ config.autoAddCss = false
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import { ToastContainer } from 'react-toastify'
 
 import { useEffect } from 'react'
 import Context from '@/context/Context';
@@ -34,7 +34,20 @@ export default function RootLayout({ children }) {
       
       </head>
       <body  >
-        <Context> {children}</Context>
+        <Context>
+        <ToastContainer
+          position='top-right'
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+
+        />
+           {children}</Context>
        
         </body>
     </html>
