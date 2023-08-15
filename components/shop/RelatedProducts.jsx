@@ -7,8 +7,11 @@ import { useContextElement } from "@/context/Context";
 
 import Image from "next/image";
 import Link from "next/link";
-export default function RelatedProducts() {
+import useFetch from "@/hooks/useFeatch";
+import Loading from "../Loading";
+export default function RelatedProducts({currentcategory}) {
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
+  const { data, loading, error } = useFetch(`products?populate=*&filters[category][name][$eq]=${currentcategory}`)
   return (
     <section className="layout-pt-md layout-pb-lg">
       <div className="container">
@@ -18,21 +21,22 @@ export default function RelatedProducts() {
               <h2 className="sectionTitle__title ">Related Products</h2>
 
               <p className="sectionTitle__text ">
-                10,000+ unique online course list designs
+              {data ? data.length + '+' : ''} unique online course list designs
               </p>
             </div>
           </div>
         </div>
 
         <div className="row y-gap-32 pt-60 sm:pt-40">
-          {productData.slice(2, 6).map((elm, i) => (
+          {loading && <Loading/> }
+          {data && data.slice(0, 4).map((elm, i) => (
             <div key={i} className="col-lg-3 col-sm-6">
               <div className="productCard -type-1 text-center">
                 <div className="productCard__image">
                   <Image
                     width={528}
                     height={528}
-                    src={elm.image}
+                    src={`${elm.attributes.imgs.data[0].attributes.url}`}
                     alt="Product image"
                   />
 
@@ -48,20 +52,18 @@ export default function RelatedProducts() {
 
                 <div className="productCard__content mt-20">
                   <div className="text-14 lh-1">
-                    {elm.categories.map((itm, index) => (
-                      <span key={index}>{`${itm}, `}</span>
-                    ))}
+                  {elm?.attributes?.category?.data?.attributes?.name ||  'Category'}
                   </div>
                   <h4 className="text-17 fw-500 mt-15 linkCustom">
                     <Link
                       href={`/shop/${elm.id}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
-                      {elm.name}
+                      {elm.attributes.name}
                     </Link>
                   </h4>
                   <div className="text-17 fw-500 text-purple-1 mt-15">
-                    ${elm.price}
+                  ${elm.attributes.price}
                   </div>
 
                   <div

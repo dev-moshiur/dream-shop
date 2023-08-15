@@ -31,7 +31,7 @@ export default function page({ params }) {
             <PageLinks/>
 
             <ProductDetails id={params.id} />
-            <RelatedProducts/>
+           
 
             
        

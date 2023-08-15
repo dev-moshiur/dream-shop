@@ -61,7 +61,7 @@ export default function SignUpForm() {
               <p className="mt-10">
                 Dont have an account?
                 <Link href="/signup" className="text-purple-1">
-                  sign up
+                  Login
                 </Link>
               </p>
 

@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faHeart } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import useFetch from "@/hooks/useFeatch";
+
 import Loading from "@/components/Loading";
 export default function CategoryShop({currentcategory}) {
  const { data, loading, error } = useFetch(`products?populate=*&filters[category][name][$eq]=${currentcategory}`)

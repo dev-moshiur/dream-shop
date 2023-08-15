@@ -10,6 +10,7 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import ImageLightBox from "./ImageLightBox";
 import { useContextElement } from "@/context/Context";
 import useFetch from "@/hooks/useFeatch";
+import RelatedProducts from "./RelatedProducts";
 export default function ProductDetails({ id }) {
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
   const { data, loading, error } = useFetch(`products/${id}?populate=*`)
@@ -453,6 +454,8 @@ export default function ProductDetails({ id }) {
           </div>
         </div>
       </section>
+      {data &&
+      <RelatedProducts currentcategory={data && data?.attributes?.category?.data?.attributes?.name}  /> }
       <ImageLightBox
         currentSlideIndex={currentSlideIndex}
         setCurrentSlideIndex={setCurrentSlideIndex}
