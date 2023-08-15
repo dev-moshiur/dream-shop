@@ -48,7 +48,10 @@ export default function Hero() {
         <div className="right" data-aos="fade-up" data-aos-delay="750">
             <div className="itemContainer">
                 <div className="item">
-                    <Image className='img' width={555} height={450} src={first ? first.imgs.data[1].attributes.url : ''} />
+                  {first && 
+                  <Image className='img' width={555} height={450} src={first ? first.imgs.data[1].attributes.url : ''} />
+                  }
+                    
                     <div className="discountContainer">
                 <span>30%</span>
                 <span>OFF</span>
