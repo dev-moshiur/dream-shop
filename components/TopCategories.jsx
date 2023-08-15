@@ -35,6 +35,7 @@ export default function TopCategories() {
                 <div className="count">
                     {elm.attributes.products.data.length}+ items
                 </div> </div>
+                
             </div>)}
 
         </div>
