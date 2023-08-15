@@ -5,6 +5,7 @@ import  Header  from "../components/layout/headers/Header";
 import HomeHero from "../components/homes/heros/HomeHero";
 
 import Brands from "../components/common/Brands";
+
 import Categories from "../components/homes/categories/Categories";
 import Courses from "../components/homes/courses/Courses";
 import TestimonialsOne from "../components/common/TestimonialsOne";
