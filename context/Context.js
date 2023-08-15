@@ -32,6 +32,7 @@ export const useContextElement = () => {
        const { data } = await axios.get('https://dream-shop-123.onrender.com/api/users/me', {
         headers: {
           Authorization:
+          
             `Bearer ${localStorage && localStorage.getItem('jwtToken')}`,
         },
       });
