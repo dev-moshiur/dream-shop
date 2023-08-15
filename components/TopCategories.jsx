@@ -7,6 +7,7 @@ import useFetch from '@/hooks/useFeatch'
 import Image from 'next/image'
 import React from 'react'
 import Loading from './Loading'
+import Link from 'next/link'
 
 export default function TopCategories() {
     const { data, loading, error } = useFetch('categories?populate=*')
@@ -22,7 +23,7 @@ export default function TopCategories() {
               data-aos-duration={400}>
                 {loading && <Loading/>}
             {data && data.map((elm,i)=>
-            <div key={i} className="item">
+            <Link href={`/category/${elm.attributes.name}`} key={i} className="item">
                 <div className="img">
                 <Image  width={555} height={450} src={`${elm?.attributes?.img?.data?.attributes?.url}`} />
                 </div>
@@ -36,7 +37,7 @@ export default function TopCategories() {
                     {elm.attributes.products.data.length}+ items
                 </div> </div>
                 
-            </div>)}
+            </Link>)}
 
         </div>
     </div>
