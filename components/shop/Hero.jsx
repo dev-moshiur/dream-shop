@@ -1,10 +1,12 @@
 
+'use client'
 
-
+import useFetch from '@/hooks/useFeatch'
 import Image from 'next/image'
 import React from 'react'
 
 export default function Hero() {
+    const { data, loading, error } = useFetch('banners?populate=*')
   return (
     <div className='heroEcommerce container' >
         <div className="left">

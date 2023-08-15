@@ -1,5 +1,5 @@
 'use client'
-
+import axios from 'axios';
 import React, { useEffect } from "react";
 import { useContext ,useState } from "react";
 const dataContext = React.createContext();
@@ -10,6 +10,7 @@ export const useContextElement = () => {
 
   export default function Context({ children }) {
     const [cartProducts, setCartProducts] = useState([])
+    const [currentUser, setCurrentUser] = useState(null)
 
     const addProductToCart = (item)=>{
 
@@ -25,9 +26,20 @@ export const useContextElement = () => {
 
     }
     useEffect(() => {
-      console.log(cartProducts)
+
       
-    }, [cartProducts])
+    async () =>{
+       const { data } = await axios.get('https://dream-shop-123.onrender.com/api/users/me', {
+        headers: {
+          Authorization:
+            `Bearer ${localStorage && localStorage.getItem('jwtToken')}`,
+        },
+      });
+      console.log(data)
+    }
+     
+      
+    }, [])
     
     const isAddedToCartProducts = (item)=>{
         if (cartProducts.filter((elm)=>elm.id == item.id)[0]) {
