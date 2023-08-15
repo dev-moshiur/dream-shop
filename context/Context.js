@@ -36,7 +36,7 @@ export const useContextElement = () => {
             `Bearer ${localStorage && localStorage.getItem('jwtToken')}`,
         },
       });
-      console.log(data)
+      console.log('data',data)
     }
      
       
