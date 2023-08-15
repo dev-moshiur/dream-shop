@@ -25,22 +25,25 @@ export const useContextElement = () => {
         }
 
     }
-    useEffect(() => {
+    // useEffect(() => {
 
-      
-    async () =>{
-       const { data } = await axios.get('https://dream-shop-123.onrender.com/api/users/me', {
-        headers: {
-          Authorization:
+    //   const getUser = async()=>{
+    //     console.log(localStorage && localStorage.getItem('jwtToken'))
+
+     
+    
+    //    const { data } = await axios.get('https://dream-shop-123.onrender.com/api/users/me', {
+    //     headers: {
+    //       Authorization:
           
-            `Bearer ${localStorage && localStorage.getItem('jwtToken')}`,
-        },
-      });
-      console.log('data',data)
-    }
+    //         `Bearer ${localStorage && localStorage.getItem('jwtToken')}`,
+    //     },
+    //   });
+    //   console.log('data',data) }
+    //   getUser()
      
       
-    }, [])
+    // }, [])
     
     const isAddedToCartProducts = (item)=>{
         if (cartProducts.filter((elm)=>elm.id == item.id)[0]) {

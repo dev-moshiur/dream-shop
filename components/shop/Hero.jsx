@@ -1,17 +1,34 @@
 
 'use client'
 
+import { makeRequest } from '@/hooks/makeRequest'
 import useFetch from '@/hooks/useFeatch'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Hero() {
-    const { data, loading, error } = useFetch('banners?populate=*')
+    const { data, loading, error } = useFetch('banner?populate=*')
+    const [first, setfirst] = useState(null)
+    const setData = async()=>{
+       const itm = await makeRequest.get(`products/${data.attributes.product.data.id}?populate=*`)
+        setfirst(itm.data.data.attributes)
+ 
+
+    }
+    useEffect(() => {
+      if (data) {
+        setData()
+       
+        
+      }
+    }, [data])
+    
   return (
     <div className='heroEcommerce container' >
         <div className="left">
             <div className="head" data-aos="fade-up" data-aos-delay="550">
-            New Wineter Item.
+                {first && first.name}
+            
             </div>
             <div className="title" data-aos="fade-up" data-aos-delay="650">
             We helping client to create websites with our talented expert.
@@ -31,7 +48,7 @@ export default function Hero() {
         <div className="right" data-aos="fade-up" data-aos-delay="750">
             <div className="itemContainer">
                 <div className="item">
-                    <Image className='img' width={555} height={450} src='/assets/img/hero.png' />
+                    <Image className='img' width={555} height={450} src={first ? first.imgs.data[1].attributes.url : ''} />
                     <div className="discountContainer">
                 <span>30%</span>
                 <span>OFF</span>

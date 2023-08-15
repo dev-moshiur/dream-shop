@@ -15,20 +15,20 @@ export default function ShopCart() {
     e.preventDefault();
   };
 
-  const handleIncrease = (index) => {
-    const item = cartProducts[index];
+  const handleIncrease = (index,item) => {
 
-    item.quantity += 1;
+
+    item.attributes.quantity += 1;
     const updated = [...cartProducts];
     updated[index] == item;
 
     setCartProducts(updated);
   };
-  const handleDecrease = (index) => {
-    const item = cartProducts[index];
+  const handleDecrease = (index,item) => {
 
-    if (item.quantity > 1) {
-      item.quantity -= 1;
+
+    if (item.attributes.quantity > 1) {
+      item.attributes.quantity -= 1;
       const updated = [...cartProducts];
       updated[index] == item;
 
@@ -149,14 +149,14 @@ export default function ShopCart() {
                           <div className="input-counter__controls">
                             <button
                               className="input-counter__up js-down"
-                              onClick={() => handleDecrease(i)}
+                              onClick={() => handleDecrease(i,elm)}
                             >
                               <FontAwesomeIcon icon={faMinus} />
                             </button>
 
                             <button
                               className="input-counter__down js-up"
-                              onClick={() => handleIncrease(i)}
+                              onClick={() => handleIncrease(i,elm)}
                             >
                               <FontAwesomeIcon icon={faPlus} />
                             </button>
