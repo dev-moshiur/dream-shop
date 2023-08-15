@@ -24,7 +24,7 @@ export default function TopCategories() {
             {data && data.map((elm,i)=>
             <div key={i} className="item">
                 <div className="img">
-                <Image  width={555} height={450} src={`${elm.attributes.img.data.attributes.url}`} />
+                <Image  width={555} height={450} src={`${elm?.attributes?.img?.data?.attributes?.url}`} />
                 </div>
                 <div className="text">
 
